@@ -117,8 +117,9 @@ keys.forEach((key) => {
 });
 
 body.addEventListener('keydown', (event) => {
-  event.preventDefault();
   keys.forEach((key) => {
+    event.preventDefault();
+
     if (key.classList.contains(event.code)) {
       if (event.code === enumKeys.CAPSLOCK) {
         keyboard.switchCase();
