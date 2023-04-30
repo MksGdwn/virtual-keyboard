@@ -35,5 +35,13 @@ class keyboard {
       this.keyboard.append(row);
     });
   }
+
+  switchLang() {
+    this.btns.forEach((btn) => {
+      btn.childNodes.forEach((item) => {
+        item.classList.toggle(enumCssStyle.HIDDEN);
+      });
+    });
+  }
 }
 export default keyboard;

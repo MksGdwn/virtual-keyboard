@@ -5,6 +5,10 @@ import enumCssStyle from './components/enumCssStyle.js';
 const body = document.querySelector('body');
 const main = document.createElement('main');
 const wrapper = createElement('div', ['wrapper']);
+const desc = createElement('p', ['desc']);
+desc.innerText = 'Клавиатура создана в операционной системе Window';
+const lang = createElement('p', ['lang']);
+lang.innerText = 'Для переключения языка комбинация: левыe ctrl + alt';
 
 const textarea = createElement('textarea', ['textarea']);
 textarea.setAttribute('rows', 10);
@@ -16,6 +20,8 @@ body.append(main);
 main.append(wrapper);
 wrapper.append(textarea);
 wrapper.append(keyboard.keyboard);
+wrapper.append(desc);
+wrapper.append(lang);
 
 const keys = document.querySelectorAll(`.${enumCssStyle.BTN}`);
 
@@ -45,6 +51,10 @@ body.addEventListener('keydown', (event) => {
         const start = textarea.selectionStart;
         textarea.value = inputNewText(start, textarea.value, key.innerText);
         textarea.setSelectionRange(start + 1, start + 1);
+      }
+
+      if (event.ctrlKey && event.altKey) {
+        keyboard.switchLang();
       }
     }
   });
