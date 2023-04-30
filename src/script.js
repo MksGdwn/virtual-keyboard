@@ -1,6 +1,7 @@
 import Keyboard from './components/keyboard.js';
 import createElement from './components/utils.js';
 import enumCssStyle from './components/enumCssStyle.js';
+import enumKeys from './components/enumKeys.js';
 
 const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'eng';
 
@@ -52,24 +53,24 @@ keys.forEach((key) => {
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
-    if (key.classList.contains('CapsLock')) {
+    if (key.classList.contains(enumKeys.CAPSLOCK)) {
       keyboard.switchCase();
       key.classList.toggle('active');
     }
 
-    if (key.classList.contains('Tab')) {
+    if (key.classList.contains(enumKeys.TAB)) {
       const start = textarea.selectionStart;
       textarea.value = inputNewText(start, textarea.value, '\t');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
-    if (key.classList.contains('Enter')) {
+    if (key.classList.contains(enumKeys.ENTER)) {
       const start = textarea.selectionStart;
       textarea.value = inputNewText(start, textarea.value, '\n');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
-    if (key.classList.contains('Backspace')) {
+    if (key.classList.contains(enumKeys.BACKSPACE)) {
       let start = textarea.selectionStart - 1;
       textarea.value = deleteText(start, textarea.value);
       if (start < 0) {
@@ -78,20 +79,20 @@ keys.forEach((key) => {
       textarea.setSelectionRange(start, start);
     }
 
-    if (key.classList.contains('Delete')) {
+    if (key.classList.contains(enumKeys.DELETE)) {
       const start = textarea.selectionStart;
       textarea.value = deleteText(start, textarea.value);
       textarea.setSelectionRange(start, start);
     }
 
-    if (key.classList.contains('Space')) {
+    if (key.classList.contains(enumKeys.SPACE)) {
       const start = textarea.selectionStart;
       textarea.value = inputNewText(start, textarea.value, ' ');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
-    if ((key.classList.contains('ControlLeft') && event.altKey)
-        || (key.classList.contains('AltLeft') && event.ctrlKey)) {
+    if ((key.classList.contains(enumKeys.CTRL_LEFT) && event.altKey)
+        || (key.classList.contains(enumKeys.ALT_LEFT) && event.ctrlKey)) {
       keyboard.switchLang();
     }
   });
@@ -99,7 +100,8 @@ keys.forEach((key) => {
 
 keys.forEach((key) => {
   key.addEventListener('mousedown', () => {
-    if (key.classList.contains('ShiftLeft') || key.classList.contains('ShiftRight')) {
+    if (key.classList.contains(enumKeys.SHIFT_LEFT)
+        || key.classList.contains(enumKeys.SHIFT_RIGHT)) {
       keyboard.switchCase();
     }
   });
@@ -107,7 +109,8 @@ keys.forEach((key) => {
 
 keys.forEach((key) => {
   key.addEventListener('mouseup', () => {
-    if (key.classList.contains('ShiftLeft') || key.classList.contains('ShiftRight')) {
+    if (key.classList.contains(enumKeys.SHIFT_LEFT)
+        || key.classList.contains(enumKeys.SHIFT_RIGHT)) {
       keyboard.switchCase();
     }
   });
@@ -117,7 +120,7 @@ body.addEventListener('keydown', (event) => {
   event.preventDefault();
   keys.forEach((key) => {
     if (key.classList.contains(event.code)) {
-      if (event.code === 'CapsLock') {
+      if (event.code === enumKeys.CAPSLOCK) {
         keyboard.switchCase();
         key.classList.toggle('active');
       } else {
@@ -134,23 +137,23 @@ body.addEventListener('keydown', (event) => {
         keyboard.switchLang();
       }
 
-      if (event.key === 'Shift' && !event.repeat) {
+      if (event.key === enumKeys.SHIFT && !event.repeat) {
         keyboard.switchCase();
       }
 
-      if (event.code === 'Tab') {
+      if (event.code === enumKeys.TAB) {
         const start = textarea.selectionStart;
         textarea.value = inputNewText(start, textarea.value, '\t');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
-      if (event.code === 'Enter') {
+      if (event.code === enumKeys.ENTER) {
         const start = textarea.selectionStart;
         textarea.value = inputNewText(start, textarea.value, '\n');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
-      if (event.code === 'Backspace') {
+      if (event.code === enumKeys.BACKSPACE) {
         let start = textarea.selectionStart - 1;
         textarea.value = deleteText(start, textarea.value);
         if (start < 0) {
@@ -159,13 +162,13 @@ body.addEventListener('keydown', (event) => {
         textarea.setSelectionRange(start, start);
       }
 
-      if (event.code === 'Delete') {
+      if (event.code === enumKeys.DELETE) {
         const start = textarea.selectionStart;
         textarea.value = deleteText(start, textarea.value);
         textarea.setSelectionRange(start, start);
       }
 
-      if (event.code === 'Space') {
+      if (event.code === enumKeys.SPACE) {
         const start = textarea.selectionStart;
         textarea.value = inputNewText(start, textarea.value, ' ');
         textarea.setSelectionRange(start + 1, start + 1);
@@ -177,11 +180,11 @@ body.addEventListener('keydown', (event) => {
 body.addEventListener('keyup', (event) => {
   keys.forEach((key) => {
     if (key.classList.contains(event.code)) {
-      if (event.code !== 'CapsLock') {
+      if (event.code !== enumKeys.CAPSLOCK) {
         key.classList.remove('active');
       }
 
-      if (event.key === 'Shift') {
+      if (event.key === enumKeys.SHIFT) {
         keyboard.switchCase();
       }
     }
