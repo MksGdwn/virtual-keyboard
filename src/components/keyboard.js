@@ -3,10 +3,11 @@ import createElement from './utils.js';
 import keyCodes from './keyCodes.js';
 
 class keyboard {
-  constructor() {
+  constructor(lang) {
     this.keyboard = createElement('section', [enumCssStyle.KEYBOARD]);
     this.btns = [];
     this.caps = false;
+    this.lang = lang;
 
     keyCodes.forEach((line) => {
       const row = createElement('div', [enumCssStyle.ROW]);
@@ -16,8 +17,8 @@ class keyboard {
         const div = createElement('div', [enumCssStyle.BTN, key]);
 
         Object.entries(obj).forEach((el) => {
-          const [lang, values] = el;
-          const span = lang === 'eng' ? createElement('span', [lang]) : createElement('span', [lang, enumCssStyle.HIDDEN]);
+          const [currentlang, values] = el;
+          const span = currentlang === this.lang ? createElement('span', [currentlang]) : createElement('span', [currentlang, enumCssStyle.HIDDEN]);
 
           for (let i = 0; i < 2; i += 1) {
             const classValue = i === 0 ? enumCssStyle.LOWER_CASE : enumCssStyle.UPPER_CASE;
@@ -44,6 +45,12 @@ class keyboard {
       });
     });
 
+    if (this.lang === 'eng') {
+      this.lang = 'rus';
+    } else {
+      this.lang = 'eng';
+    }
+
     if (this.caps) {
       this.switchCase();
     }
@@ -65,6 +72,14 @@ class keyboard {
     } else {
       this.caps = true;
     }
+  }
+
+  getKeyboard() {
+    return this.keyboard;
+  }
+
+  getLanguage() {
+    return this.lang;
   }
 }
 export default keyboard;

@@ -2,6 +2,8 @@ import Keyboard from './components/keyboard.js';
 import createElement from './components/utils.js';
 import enumCssStyle from './components/enumCssStyle.js';
 
+const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'eng';
+
 const body = document.querySelector('body');
 const main = document.createElement('main');
 const wrapper = createElement('div', ['wrapper']);
@@ -14,12 +16,12 @@ const textarea = createElement('textarea', ['textarea']);
 textarea.setAttribute('rows', 10);
 textarea.setAttribute('cols', 50);
 
-const keyboard = new Keyboard();
+const keyboard = new Keyboard(keyboardLang);
 
 body.append(main);
 main.append(wrapper);
 wrapper.append(textarea);
-wrapper.append(keyboard.keyboard);
+wrapper.append(keyboard.getKeyboard());
 wrapper.append(desc);
 wrapper.append(lang);
 
@@ -182,3 +184,9 @@ body.addEventListener('keyup', (event) => {
     }
   });
 });
+
+function setLocalStorage() {
+  localStorage.setItem('lang', keyboard.getLanguage());
+}
+
+window.addEventListener('beforeunload', setLocalStorage);
