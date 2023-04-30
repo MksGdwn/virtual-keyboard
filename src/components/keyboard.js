@@ -1,28 +1,28 @@
 import enumCssStyle from './enumCssStyle.js';
-import createElement from './utils.js';
+import * as Utils from './utils.js';
 import keyCodes from './keyCodes.js';
 
 class keyboard {
   constructor(lang) {
-    this.keyboard = createElement('section', [enumCssStyle.KEYBOARD]);
+    this.keyboard = Utils.createElement('section', [enumCssStyle.KEYBOARD]);
     this.btns = [];
     this.caps = false;
     this.lang = lang;
 
     keyCodes.forEach((line) => {
-      const row = createElement('div', [enumCssStyle.ROW]);
+      const row = Utils.createElement('div', [enumCssStyle.ROW]);
 
       Object.entries(line).forEach((item) => {
         const [key, obj] = item;
-        const div = createElement('div', [enumCssStyle.BTN, key]);
+        const div = Utils.createElement('div', [enumCssStyle.BTN, key]);
 
         Object.entries(obj).forEach((el) => {
           const [currentlang, values] = el;
-          const span = currentlang === this.lang ? createElement('span', [currentlang]) : createElement('span', [currentlang, enumCssStyle.HIDDEN]);
+          const span = currentlang === this.lang ? Utils.createElement('span', [currentlang]) : Utils.createElement('span', [currentlang, enumCssStyle.HIDDEN]);
 
           for (let i = 0; i < 2; i += 1) {
             const classValue = i === 0 ? enumCssStyle.LOWER_CASE : enumCssStyle.UPPER_CASE;
-            const value = i === 0 ? createElement('span', [classValue]) : createElement('span', [classValue, enumCssStyle.HIDDEN]);
+            const value = i === 0 ? Utils.createElement('span', [classValue]) : Utils.createElement('span', [classValue, enumCssStyle.HIDDEN]);
             value.innerHTML = values[i];
             span.append(value);
           }
@@ -82,4 +82,5 @@ class keyboard {
     return this.lang;
   }
 }
+
 export default keyboard;

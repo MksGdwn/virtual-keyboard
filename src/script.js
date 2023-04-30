@@ -1,5 +1,5 @@
 import Keyboard from './components/keyboard.js';
-import createElement from './components/utils.js';
+import * as Utils from './components/utils.js';
 import enumCssStyle from './components/enumCssStyle.js';
 import enumKeys from './components/enumKeys.js';
 
@@ -7,15 +7,15 @@ const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang')
 
 const body = document.querySelector('body');
 const main = document.createElement('main');
-const wrapper = createElement('div', ['wrapper']);
-const header = createElement('h1', ['header']);
+const wrapper = Utils.createElement('div', ['wrapper']);
+const header = Utils.createElement('h1', ['header']);
 header.innerText = 'Виртуальная клавиатура';
-const desc = createElement('p', ['desc']);
+const desc = Utils.createElement('p', ['desc']);
 desc.innerText = 'Клавиатура создана в операционной системе Window';
-const lang = createElement('p', ['lang']);
+const lang = Utils.createElement('p', ['lang']);
 lang.innerText = 'Для переключения языка комбинация: левыe ctrl + alt';
 
-const textarea = createElement('textarea', ['textarea']);
+const textarea = Utils.createElement('textarea', ['textarea']);
 textarea.setAttribute('rows', 10);
 textarea.setAttribute('cols', 50);
 
@@ -31,25 +31,11 @@ wrapper.append(lang);
 
 const keys = document.querySelectorAll(`.${enumCssStyle.BTN}`);
 
-function inputNewText(index, value, text) {
-  const result = value.slice(0, index) + text + value.slice(index);
-
-  return result;
-}
-
-function deleteText(index, value) {
-  if (index < 0) {
-    return value;
-  }
-
-  return value.slice(0, index) + value.slice(index + 1);
-}
-
 keys.forEach((key) => {
   key.addEventListener('click', (event) => {
     if (key.innerText.length === 1) {
       const start = textarea.selectionStart;
-      textarea.value = inputNewText(start, textarea.value, key.innerText);
+      textarea.value = Utils.addText(start, textarea.value, key.innerText);
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
@@ -60,19 +46,19 @@ keys.forEach((key) => {
 
     if (key.classList.contains(enumKeys.TAB)) {
       const start = textarea.selectionStart;
-      textarea.value = inputNewText(start, textarea.value, '\t');
+      textarea.value = Utils.addText(start, textarea.value, '\t');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
     if (key.classList.contains(enumKeys.ENTER)) {
       const start = textarea.selectionStart;
-      textarea.value = inputNewText(start, textarea.value, '\n');
+      textarea.value = Utils.addText(start, textarea.value, '\n');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
     if (key.classList.contains(enumKeys.BACKSPACE)) {
       let start = textarea.selectionStart - 1;
-      textarea.value = deleteText(start, textarea.value);
+      textarea.value = Utils.deleteText(start, textarea.value);
       if (start < 0) {
         start = 0;
       }
@@ -81,13 +67,13 @@ keys.forEach((key) => {
 
     if (key.classList.contains(enumKeys.DELETE)) {
       const start = textarea.selectionStart;
-      textarea.value = deleteText(start, textarea.value);
+      textarea.value = Utils.deleteText(start, textarea.value);
       textarea.setSelectionRange(start, start);
     }
 
     if (key.classList.contains(enumKeys.SPACE)) {
       const start = textarea.selectionStart;
-      textarea.value = inputNewText(start, textarea.value, ' ');
+      textarea.value = Utils.addText(start, textarea.value, ' ');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
@@ -130,7 +116,7 @@ body.addEventListener('keydown', (event) => {
 
       if (key.innerText.length === 1) {
         const start = textarea.selectionStart;
-        textarea.value = inputNewText(start, textarea.value, key.innerText);
+        textarea.value = Utils.addText(start, textarea.value, key.innerText);
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
@@ -144,19 +130,19 @@ body.addEventListener('keydown', (event) => {
 
       if (event.code === enumKeys.TAB) {
         const start = textarea.selectionStart;
-        textarea.value = inputNewText(start, textarea.value, '\t');
+        textarea.value = Utils.addText(start, textarea.value, '\t');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
       if (event.code === enumKeys.ENTER) {
         const start = textarea.selectionStart;
-        textarea.value = inputNewText(start, textarea.value, '\n');
+        textarea.value = Utils.addText(start, textarea.value, '\n');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
       if (event.code === enumKeys.BACKSPACE) {
         let start = textarea.selectionStart - 1;
-        textarea.value = deleteText(start, textarea.value);
+        textarea.value = Utils.deleteText(start, textarea.value);
         if (start < 0) {
           start = 0;
         }
@@ -165,13 +151,13 @@ body.addEventListener('keydown', (event) => {
 
       if (event.code === enumKeys.DELETE) {
         const start = textarea.selectionStart;
-        textarea.value = deleteText(start, textarea.value);
+        textarea.value = Utils.deleteText(start, textarea.value);
         textarea.setSelectionRange(start, start);
       }
 
       if (event.code === enumKeys.SPACE) {
         const start = textarea.selectionStart;
-        textarea.value = inputNewText(start, textarea.value, ' ');
+        textarea.value = Utils.addText(start, textarea.value, ' ');
         textarea.setSelectionRange(start + 1, start + 1);
       }
     }
