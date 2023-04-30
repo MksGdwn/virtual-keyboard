@@ -57,17 +57,21 @@ keys.forEach((key) => {
     }
 
     if (key.classList.contains(enumKeys.BACKSPACE)) {
-      let start = textarea.selectionStart - 1;
-      textarea.value = Utils.deleteText(start, textarea.value);
-      if (start < 0) {
-        start = 0;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      let index = end - start ? start : start - 1;
+      if (index < 0) {
+        index = 0;
       }
-      textarea.setSelectionRange(start, start);
+      textarea.setRangeText('', index, end);
+      textarea.setSelectionRange(index, index);
     }
 
     if (key.classList.contains(enumKeys.DELETE)) {
       const start = textarea.selectionStart;
-      textarea.value = Utils.deleteText(start, textarea.value);
+      const end = textarea.selectionEnd;
+      const index = end - start ? end : end + 1;
+      textarea.setRangeText('', start, index);
       textarea.setSelectionRange(start, start);
     }
 
@@ -141,17 +145,21 @@ body.addEventListener('keydown', (event) => {
       }
 
       if (event.code === enumKeys.BACKSPACE) {
-        let start = textarea.selectionStart - 1;
-        textarea.value = Utils.deleteText(start, textarea.value);
-        if (start < 0) {
-          start = 0;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        let index = end - start ? start : start - 1;
+        if (index < 0) {
+          index = 0;
         }
-        textarea.setSelectionRange(start, start);
+        textarea.setRangeText('', index, end);
+        textarea.setSelectionRange(index, index);
       }
 
       if (event.code === enumKeys.DELETE) {
         const start = textarea.selectionStart;
-        textarea.value = Utils.deleteText(start, textarea.value);
+        const end = textarea.selectionEnd;
+        const index = end - start ? end : end + 1;
+        textarea.setRangeText('', start, index);
         textarea.setSelectionRange(start, start);
       }
 
