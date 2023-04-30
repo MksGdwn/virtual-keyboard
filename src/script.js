@@ -40,7 +40,7 @@ function deleteText(index, value) {
 }
 
 keys.forEach((key) => {
-  key.addEventListener('click', () => {
+  key.addEventListener('click', (event) => {
     if (key.innerText.length === 1) {
       const start = textarea.selectionStart;
       textarea.value = inputNewText(start, textarea.value, key.innerText);
@@ -83,6 +83,11 @@ keys.forEach((key) => {
       const start = textarea.selectionStart;
       textarea.value = inputNewText(start, textarea.value, ' ');
       textarea.setSelectionRange(start + 1, start + 1);
+    }
+
+    if ((key.classList.contains('ControlLeft') && event.altKey)
+        || (key.classList.contains('AltLeft') && event.ctrlKey)) {
+      keyboard.switchLang();
     }
   });
 });
