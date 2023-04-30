@@ -6,6 +6,7 @@ class keyboard {
   constructor() {
     this.keyboard = createElement('section', [enumCssStyle.KEYBOARD]);
     this.btns = [];
+    this.caps = false;
 
     keyCodes.forEach((line) => {
       const row = createElement('div', [enumCssStyle.ROW]);
@@ -42,6 +43,28 @@ class keyboard {
         item.classList.toggle(enumCssStyle.HIDDEN);
       });
     });
+
+    if (this.caps) {
+      this.switchCase();
+    }
+  }
+
+  switchCase() {
+    this.btns.forEach((btn) => {
+      btn.childNodes.forEach((item) => {
+        if (!item.classList.contains(enumCssStyle.HIDDEN)) {
+          item.childNodes.forEach((el) => {
+            el.classList.toggle(enumCssStyle.HIDDEN);
+          });
+        }
+      });
+    });
+
+    if (this.caps) {
+      this.caps = false;
+    } else {
+      this.caps = true;
+    }
   }
 }
 export default keyboard;

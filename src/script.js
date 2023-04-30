@@ -38,6 +38,27 @@ keys.forEach((key) => {
       textarea.value = inputNewText(start, textarea.value, key.innerText);
       textarea.setSelectionRange(start + 1, start + 1);
     }
+
+    if (key.classList.contains('CapsLock')) {
+      keyboard.switchCase();
+      key.classList.toggle('active');
+    }
+  });
+});
+
+keys.forEach((key) => {
+  key.addEventListener('mousedown', () => {
+    if (key.classList.contains('ShiftLeft') || key.classList.contains('ShiftRight')) {
+      keyboard.switchCase();
+    }
+  });
+});
+
+keys.forEach((key) => {
+  key.addEventListener('mouseup', () => {
+    if (key.classList.contains('ShiftLeft') || key.classList.contains('ShiftRight')) {
+      keyboard.switchCase();
+    }
   });
 });
 
@@ -45,7 +66,12 @@ body.addEventListener('keydown', (event) => {
   event.preventDefault();
   keys.forEach((key) => {
     if (key.classList.contains(event.code)) {
-      key.classList.add('active');
+      if (event.code === 'CapsLock') {
+        keyboard.switchCase();
+        key.classList.toggle('active');
+      } else {
+        key.classList.add('active');
+      }
 
       if (key.innerText.length === 1) {
         const start = textarea.selectionStart;
@@ -56,6 +82,10 @@ body.addEventListener('keydown', (event) => {
       if (event.ctrlKey && event.altKey) {
         keyboard.switchLang();
       }
+
+      if (event.key === 'Shift' && !event.repeat) {
+        keyboard.switchCase();
+      }
     }
   });
 });
@@ -63,7 +93,13 @@ body.addEventListener('keydown', (event) => {
 body.addEventListener('keyup', (event) => {
   keys.forEach((key) => {
     if (key.classList.contains(event.code)) {
-      key.classList.remove('active');
+      if (event.code !== 'CapsLock') {
+        key.classList.remove('active');
+      }
+
+      if (event.key === 'Shift') {
+        keyboard.switchCase();
+      }
     }
   });
 });
