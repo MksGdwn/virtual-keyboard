@@ -1,16 +1,29 @@
 .wrapper {
-  width: 50%;
+  width: 812px;
   margin: 0 auto;
 }
 
+.textarea {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
 .keyboard {
-  max-width: 788px;
+  width: 100%;
   margin: 0 auto;
   padding: 10px;
 
   background-color: #eee;
   border: 2px solid #bbb;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .row {
