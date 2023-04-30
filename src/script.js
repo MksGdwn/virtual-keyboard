@@ -7,6 +7,8 @@ const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang')
 const body = document.querySelector('body');
 const main = document.createElement('main');
 const wrapper = createElement('div', ['wrapper']);
+const header = createElement('h1', ['header']);
+header.innerText = 'Виртуальная клавиатура';
 const desc = createElement('p', ['desc']);
 desc.innerText = 'Клавиатура создана в операционной системе Window';
 const lang = createElement('p', ['lang']);
@@ -20,6 +22,7 @@ const keyboard = new Keyboard(keyboardLang);
 
 body.append(main);
 main.append(wrapper);
+wrapper.append(header);
 wrapper.append(textarea);
 wrapper.append(keyboard.getKeyboard());
 wrapper.append(desc);
