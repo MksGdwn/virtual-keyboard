@@ -83,22 +83,18 @@ keys.forEach((key) => {
   });
 });
 
+function holdShift(key) {
+  if (key.classList.contains(enumKeys.SHIFT_LEFT) || key.classList.contains(enumKeys.SHIFT_RIGHT)) {
+    keyboard.switchCase();
+  }
+}
+
 keys.forEach((key) => {
-  key.addEventListener('mousedown', () => {
-    if (key.classList.contains(enumKeys.SHIFT_LEFT)
-        || key.classList.contains(enumKeys.SHIFT_RIGHT)) {
-      keyboard.switchCase();
-    }
-  });
+  key.addEventListener('mousedown', holdShift(key));
 });
 
 keys.forEach((key) => {
-  key.addEventListener('mouseup', () => {
-    if (key.classList.contains(enumKeys.SHIFT_LEFT)
-        || key.classList.contains(enumKeys.SHIFT_RIGHT)) {
-      keyboard.switchCase();
-    }
-  });
+  key.addEventListener('mouseup', holdShift(key));
 });
 
 body.addEventListener('keydown', (event) => {
