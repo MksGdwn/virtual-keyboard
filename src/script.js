@@ -110,11 +110,11 @@ function holdShift(key) {
 }
 
 keys.forEach((key) => {
-  key.addEventListener('mousedown', holdShift(key));
+  key.addEventListener('mousedown', () => holdShift(key));
 });
 
 keys.forEach((key) => {
-  key.addEventListener('mouseup', holdShift(key));
+  key.addEventListener('mouseup', () => holdShift(key));
 });
 
 body.addEventListener('keydown', (event) => {
