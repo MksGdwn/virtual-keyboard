@@ -1,10 +1,15 @@
 const enumCssStyle = {
-  KEYBOARD: 'keyboard',
   BTN: 'btn',
-  ROW: 'row',
-  UPPER_CASE: 'upperCase',
-  LOWER_CASE: 'lowerCase',
+  DESC: 'desc',
+  HEADER: 'header',
   HIDDEN: 'hidden',
+  KEYBOARD: 'keyboard',
+  LANG: 'lang',
+  LOWER_CASE: 'lowerCase',
+  ROW: 'row',
+  TEXTAREA: 'textarea',
+  UPPER_CASE: 'upperCase',
+  WRAPPER: 'wrapper',
 };
 
 export default enumCssStyle;

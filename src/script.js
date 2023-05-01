@@ -7,15 +7,15 @@ const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang')
 
 const body = document.querySelector('body');
 const main = document.createElement('main');
-const wrapper = Utils.createElement('div', ['wrapper']);
-const header = Utils.createElement('h1', ['header']);
+const wrapper = Utils.createElement('div', [enumCssStyle.WRAPPER]);
+const header = Utils.createElement('h1', [enumCssStyle.HEADER]);
 header.innerText = 'Виртуальная клавиатура';
-const desc = Utils.createElement('p', ['desc']);
+const desc = Utils.createElement('p', [enumCssStyle.DESC]);
 desc.innerText = 'Клавиатура создана в операционной системе Window';
-const lang = Utils.createElement('p', ['lang']);
+const lang = Utils.createElement('p', [enumCssStyle.LANG]);
 lang.innerText = 'Для переключения языка комбинация: левыe ctrl + alt';
 
-const textarea = Utils.createElement('textarea', ['textarea']);
+const textarea = Utils.createElement('textarea', [enumCssStyle.TEXTAREA]);
 textarea.setAttribute('rows', 10);
 textarea.setAttribute('cols', 50);
 
