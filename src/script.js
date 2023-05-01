@@ -31,6 +31,36 @@ wrapper.append(lang);
 
 const keys = document.querySelectorAll(`.${enumCssStyle.BTN}`);
 
+function clickEnter(start) {
+  textarea.value = Utils.addText(start, textarea.value, '\n');
+  textarea.setSelectionRange(start + 1, start + 1);
+}
+
+function clickTab(start) {
+  textarea.value = Utils.addText(start, textarea.value, '\t');
+  textarea.setSelectionRange(start + 1, start + 1);
+}
+
+function clickBackspace(start, end) {
+  let index = end - start ? start : start - 1;
+  if (index < 0) {
+    index = 0;
+  }
+  textarea.setRangeText('', index, end);
+  textarea.setSelectionRange(index, index);
+}
+
+function clickDelete(start, end) {
+  const index = end - start ? end : end + 1;
+  textarea.setRangeText('', start, index);
+  textarea.setSelectionRange(start, start);
+}
+
+function clickSpace(start) {
+  textarea.value = Utils.addText(start, textarea.value, ' ');
+  textarea.setSelectionRange(start + 1, start + 1);
+}
+
 keys.forEach((key) => {
   key.addEventListener('click', (event) => {
     const start = textarea.selectionStart;
@@ -46,39 +76,29 @@ keys.forEach((key) => {
       key.classList.toggle('active');
     }
 
-    if (key.classList.contains(enumKeys.TAB)) {
-      textarea.value = Utils.addText(start, textarea.value, '\t');
-      textarea.setSelectionRange(start + 1, start + 1);
-    }
-
-    if (key.classList.contains(enumKeys.ENTER)) {
-      textarea.value = Utils.addText(start, textarea.value, '\n');
-      textarea.setSelectionRange(start + 1, start + 1);
-    }
-
-    if (key.classList.contains(enumKeys.BACKSPACE)) {
-      let index = end - start ? start : start - 1;
-      if (index < 0) {
-        index = 0;
-      }
-      textarea.setRangeText('', index, end);
-      textarea.setSelectionRange(index, index);
-    }
-
-    if (key.classList.contains(enumKeys.DELETE)) {
-      const index = end - start ? end : end + 1;
-      textarea.setRangeText('', start, index);
-      textarea.setSelectionRange(start, start);
-    }
-
-    if (key.classList.contains(enumKeys.SPACE)) {
-      textarea.value = Utils.addText(start, textarea.value, ' ');
-      textarea.setSelectionRange(start + 1, start + 1);
-    }
-
     if ((key.classList.contains(enumKeys.CTRL_LEFT) && event.altKey)
         || (key.classList.contains(enumKeys.ALT_LEFT) && event.ctrlKey)) {
       keyboard.switchLang();
+    }
+
+    if (key.classList.contains(enumKeys.SPACE)) {
+      clickSpace(start);
+    }
+
+    if (key.classList.contains(enumKeys.TAB)) {
+      clickTab(start);
+    }
+
+    if (key.classList.contains(enumKeys.ENTER)) {
+      clickEnter(start);
+    }
+
+    if (key.classList.contains(enumKeys.BACKSPACE)) {
+      clickBackspace(start, end);
+    }
+
+    if (key.classList.contains(enumKeys.DELETE)) {
+      clickDelete(start, end);
     }
   });
 });
@@ -105,16 +125,16 @@ body.addEventListener('keydown', (event) => {
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
 
+      if (key.innerText.length === 1) {
+        textarea.value = Utils.addText(start, textarea.value, key.innerText);
+        textarea.setSelectionRange(start + 1, start + 1);
+      }
+
       if (event.code === enumKeys.CAPSLOCK) {
         keyboard.switchCase();
         key.classList.toggle('active');
       } else {
         key.classList.add('active');
-      }
-
-      if (key.innerText.length === 1) {
-        textarea.value = Utils.addText(start, textarea.value, key.innerText);
-        textarea.setSelectionRange(start + 1, start + 1);
       }
 
       if (event.ctrlKey && event.altKey) {
@@ -125,34 +145,24 @@ body.addEventListener('keydown', (event) => {
         keyboard.switchCase();
       }
 
+      if (event.code === enumKeys.SPACE) {
+        clickSpace(start);
+      }
+
       if (event.code === enumKeys.TAB) {
-        textarea.value = Utils.addText(start, textarea.value, '\t');
-        textarea.setSelectionRange(start + 1, start + 1);
+        clickTab(start);
       }
 
       if (event.code === enumKeys.ENTER) {
-        textarea.value = Utils.addText(start, textarea.value, '\n');
-        textarea.setSelectionRange(start + 1, start + 1);
+        clickEnter(start);
       }
 
       if (event.code === enumKeys.BACKSPACE) {
-        let index = end - start ? start : start - 1;
-        if (index < 0) {
-          index = 0;
-        }
-        textarea.setRangeText('', index, end);
-        textarea.setSelectionRange(index, index);
+        clickBackspace(start, end);
       }
 
       if (event.code === enumKeys.DELETE) {
-        const index = end - start ? end : end + 1;
-        textarea.setRangeText('', start, index);
-        textarea.setSelectionRange(start, start);
-      }
-
-      if (event.code === enumKeys.SPACE) {
-        textarea.value = Utils.addText(start, textarea.value, ' ');
-        textarea.setSelectionRange(start + 1, start + 1);
+        clickDelete(start, end);
       }
     }
   });
