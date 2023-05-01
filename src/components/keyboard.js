@@ -1,6 +1,6 @@
-import enumCssStyle from './enumCssStyle.js';
+import enumCssStyle from '../enums/enumCssStyle.js';
 import * as Utils from './utils.js';
-import keyCodes from './keyCodes.js';
+import keyCodes from '../enums/keyCodes.js';
 
 class keyboard {
   constructor(lang) {

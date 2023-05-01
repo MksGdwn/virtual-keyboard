@@ -1,7 +1,7 @@
 import Keyboard from './components/keyboard.js';
 import * as Utils from './components/utils.js';
-import enumCssStyle from './components/enumCssStyle.js';
-import enumKeys from './components/enumKeys.js';
+import enumCssStyle from './enums/enumCssStyle.js';
+import enumKeys from './enums/enumKeys.js';
 
 const keyboardLang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'eng';
 
