@@ -33,8 +33,10 @@ const keys = document.querySelectorAll(`.${enumCssStyle.BTN}`);
 
 keys.forEach((key) => {
   key.addEventListener('click', (event) => {
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
     if (key.innerText.length === 1) {
-      const start = textarea.selectionStart;
       textarea.value = Utils.addText(start, textarea.value, key.innerText);
       textarea.setSelectionRange(start + 1, start + 1);
     }
@@ -45,20 +47,16 @@ keys.forEach((key) => {
     }
 
     if (key.classList.contains(enumKeys.TAB)) {
-      const start = textarea.selectionStart;
       textarea.value = Utils.addText(start, textarea.value, '\t');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
     if (key.classList.contains(enumKeys.ENTER)) {
-      const start = textarea.selectionStart;
       textarea.value = Utils.addText(start, textarea.value, '\n');
       textarea.setSelectionRange(start + 1, start + 1);
     }
 
     if (key.classList.contains(enumKeys.BACKSPACE)) {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
       let index = end - start ? start : start - 1;
       if (index < 0) {
         index = 0;
@@ -68,15 +66,12 @@ keys.forEach((key) => {
     }
 
     if (key.classList.contains(enumKeys.DELETE)) {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
       const index = end - start ? end : end + 1;
       textarea.setRangeText('', start, index);
       textarea.setSelectionRange(start, start);
     }
 
     if (key.classList.contains(enumKeys.SPACE)) {
-      const start = textarea.selectionStart;
       textarea.value = Utils.addText(start, textarea.value, ' ');
       textarea.setSelectionRange(start + 1, start + 1);
     }
@@ -111,6 +106,9 @@ body.addEventListener('keydown', (event) => {
     event.preventDefault();
 
     if (key.classList.contains(event.code)) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
       if (event.code === enumKeys.CAPSLOCK) {
         keyboard.switchCase();
         key.classList.toggle('active');
@@ -119,7 +117,6 @@ body.addEventListener('keydown', (event) => {
       }
 
       if (key.innerText.length === 1) {
-        const start = textarea.selectionStart;
         textarea.value = Utils.addText(start, textarea.value, key.innerText);
         textarea.setSelectionRange(start + 1, start + 1);
       }
@@ -133,20 +130,16 @@ body.addEventListener('keydown', (event) => {
       }
 
       if (event.code === enumKeys.TAB) {
-        const start = textarea.selectionStart;
         textarea.value = Utils.addText(start, textarea.value, '\t');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
       if (event.code === enumKeys.ENTER) {
-        const start = textarea.selectionStart;
         textarea.value = Utils.addText(start, textarea.value, '\n');
         textarea.setSelectionRange(start + 1, start + 1);
       }
 
       if (event.code === enumKeys.BACKSPACE) {
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
         let index = end - start ? start : start - 1;
         if (index < 0) {
           index = 0;
@@ -156,15 +149,12 @@ body.addEventListener('keydown', (event) => {
       }
 
       if (event.code === enumKeys.DELETE) {
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
         const index = end - start ? end : end + 1;
         textarea.setRangeText('', start, index);
         textarea.setSelectionRange(start, start);
       }
 
       if (event.code === enumKeys.SPACE) {
-        const start = textarea.selectionStart;
         textarea.value = Utils.addText(start, textarea.value, ' ');
         textarea.setSelectionRange(start + 1, start + 1);
       }
