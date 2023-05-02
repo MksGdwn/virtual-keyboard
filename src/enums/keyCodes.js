@@ -102,11 +102,11 @@ const keyCodes = [{
     rus: ['з', 'З'],
   },
   BracketLeft: {
-    eng: ['[', '['],
+    eng: ['[', '{'],
     rus: ['х', 'Х'],
   },
   BracketRight: {
-    eng: [']', ']'],
+    eng: [']', '}'],
     rus: ['ъ', 'Ъ'],
   },
   Backslash: {
