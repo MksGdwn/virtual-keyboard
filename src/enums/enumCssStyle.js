@@ -5,6 +5,7 @@ const enumCssStyle = {
   HIDDEN: 'hidden',
   KEYBOARD: 'keyboard',
   LANG: 'lang',
+  LETTER: 'letter',
   LOWER_CASE: 'lowerCase',
   ROW: 'row',
   TEXTAREA: 'textarea',

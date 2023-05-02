@@ -8,6 +8,7 @@ class keyboard {
     this.btns = [];
     this.caps = false;
     this.lang = lang;
+    const alphabet = 'qwertyuiopasdfghjklzxcvbnmёйцукенгшщзхъфывапролджэячсмитьбю';
 
     keyCodes.forEach((line) => {
       const row = Utils.createElement('div', [enumCssStyle.ROW]);
@@ -23,6 +24,11 @@ class keyboard {
           for (let i = 0; i < 2; i += 1) {
             const classValue = i === 0 ? enumCssStyle.LOWER_CASE : enumCssStyle.UPPER_CASE;
             const value = i === 0 ? Utils.createElement('span', [classValue]) : Utils.createElement('span', [classValue, enumCssStyle.HIDDEN]);
+
+            if (alphabet.includes(values[i].toLowerCase())) {
+              value.classList.add(enumCssStyle.LETTER);
+            }
+
             value.innerHTML = values[i];
             span.append(value);
           }
@@ -52,7 +58,7 @@ class keyboard {
     }
 
     if (this.caps) {
-      this.switchCase();
+      this.switchLetterCase();
     }
   }
 
@@ -62,6 +68,20 @@ class keyboard {
         if (!item.classList.contains(enumCssStyle.HIDDEN)) {
           item.childNodes.forEach((el) => {
             el.classList.toggle(enumCssStyle.HIDDEN);
+          });
+        }
+      });
+    });
+  }
+
+  switchLetterCase() {
+    this.btns.forEach((btn) => {
+      btn.childNodes.forEach((item) => {
+        if (!item.classList.contains(enumCssStyle.HIDDEN)) {
+          item.childNodes.forEach((el) => {
+            if (el.classList.contains(enumCssStyle.LETTER)) {
+              el.classList.toggle(enumCssStyle.HIDDEN);
+            }
           });
         }
       });

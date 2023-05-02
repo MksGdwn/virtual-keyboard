@@ -72,7 +72,7 @@ keys.forEach((key) => {
     }
 
     if (key.classList.contains(enumKeys.CAPSLOCK)) {
-      keyboard.switchCase();
+      keyboard.switchLetterCase();
       key.classList.toggle('active');
     }
 
@@ -131,7 +131,7 @@ body.addEventListener('keydown', (event) => {
       }
 
       if (event.code === enumKeys.CAPSLOCK) {
-        keyboard.switchCase();
+        keyboard.switchLetterCase();
         key.classList.toggle('active');
       } else {
         key.classList.add('active');
